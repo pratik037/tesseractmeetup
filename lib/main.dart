@@ -10,10 +10,13 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
-      debugShowCheckedModeBanner: false,
-      title: 'Tesseract Meetup',
+    return ChangeNotifierProvider(
+      create: (context) => AuthenticationService.instance(),  
+          child: MaterialApp(
+        home: HomePage(),
+        debugShowCheckedModeBanner: false,
+        title: 'Tesseract Meetup',
+      ),
     );
   }
 }
@@ -26,9 +29,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => AuthenticationService.instance(),
-      child: Consumer(builder: (context, AuthenticationService user, _){
+    return Consumer(builder: (context, AuthenticationService user, _){
         switch(user.status){
           case Status.Uninitialised:
             return Splash();
@@ -36,11 +37,9 @@ class _HomePageState extends State<HomePage> {
           case Status.Unaunthenticated:
           case Status.Authenticating:
             return LoginPage();
-          
           case Status.Authenticated:
           return UserDetails(user: user.user);
         }
-      }),
-      );
+      });
   }
 }
