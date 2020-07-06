@@ -111,17 +111,23 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   user.status == Status.Authenticating
-                      ? Center(child: CircularProgressIndicator())
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            backgroundColor: Color(0xff6C63FF),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                Color(0xffffb663)),
+                          ),
+                        )
                       : Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16),
                           child: Material(
                             elevation: 5,
-                            borderRadius: BorderRadius.circular(30),
                             color: Color(0xffffb663),
+                            borderRadius: BorderRadius.circular(30),
                             child: MaterialButton(
                               onPressed: () async {
                                 if (_formKey.currentState.validate()) {
-                                  if (!await user.singUp(
+                                  if (!await user.signUp(
                                       _email.text, _password.text)) {
                                     _key.currentState.showSnackBar(
                                       SnackBar(

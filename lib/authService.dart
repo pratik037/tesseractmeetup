@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 enum Status{Uninitialised, Unaunthenticated, Authenticating, Authenticated}
-//  UnRegistered, Registering, Registered}
 
 class AuthenticationService extends ChangeNotifier{
   FirebaseAuth _auth;
@@ -42,13 +41,14 @@ class AuthenticationService extends ChangeNotifier{
       return true;
 
     }catch(e){
+      print(e.toString());
       _status = Status.Unaunthenticated;
       notifyListeners();
       return false;
     }
   }
 
-  Future<bool> singUp(String email, String password) async{
+  Future<bool> signUp(String email, String password) async{
     try{
       _status = Status.Authenticating;
       notifyListeners();
@@ -59,6 +59,7 @@ class AuthenticationService extends ChangeNotifier{
 
       return true;
     }catch(e){
+      print(e.toString());
       _status = Status.Unaunthenticated;
       notifyListeners();
       return false;

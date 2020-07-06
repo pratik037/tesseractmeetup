@@ -23,16 +23,21 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: Color(0xff6C63FF),
       key: _key,
       appBar: AppBar(
-        title: Text('Login', style: TextStyle(fontSize: 30),),
+        title: Text(
+          'Login',
+          style: TextStyle(fontSize: 30),
+        ),
         backgroundColor: Color(0xff6C63FF),
         elevation: 0,
         centerTitle: true,
       ),
       body: ListView(
-              children: [
-                SvgPicture.asset('assets/images/login.svg', height: 200,),
+        children: [
+          SvgPicture.asset(
+            'assets/images/login.svg',
+            height: 200,
+          ),
           Form(
-
             key: _formKey,
             child: Center(
               child: ListView(
@@ -45,25 +50,24 @@ class _LoginPageState extends State<LoginPage> {
                       validator: (value) =>
                           value.isEmpty ? "Email cannot be empty" : null,
                       decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          gapPadding: 30
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          borderSide: BorderSide(
-                            color: Colors.black
-                          )
-                        ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)),
+                              gapPadding: 30),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)),
+                              borderSide: BorderSide(color: Colors.black)),
                           labelText: 'Email',
                           labelStyle: style,
-                          prefixIcon: Icon(Icons.email, color: Colors.white,),
+                          prefixIcon: Icon(
+                            Icons.email,
+                            color: Colors.white,
+                          ),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30))
-                          )),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)))),
                     ),
                   ),
                   Padding(
@@ -74,30 +78,35 @@ class _LoginPageState extends State<LoginPage> {
                       validator: (value) =>
                           value.isEmpty ? "Password cannot be empty" : null,
                       decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          gapPadding: 30
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          gapPadding: 30
-                        ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)),
+                              gapPadding: 30),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)),
+                              gapPadding: 30),
                           labelText: 'Password',
                           labelStyle: style,
-                          prefixIcon: Icon(Icons.vpn_key, color: Colors.white,),
+                          prefixIcon: Icon(
+                            Icons.vpn_key,
+                            color: Colors.white,
+                          ),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30))
-                          )),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)))),
                     ),
                   ),
                   user.status == Status.Authenticating
-                      ? Center(child: CircularProgressIndicator())
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            backgroundColor: Color(0xff6C63FF),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                Color(0xffffb663)),
+                          ),
+                        )
                       : Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16),
                           child: Material(
@@ -110,8 +119,8 @@ class _LoginPageState extends State<LoginPage> {
                                   if (!await user.signIn(
                                       _email.text, _password.text)) {
                                     _key.currentState.showSnackBar(SnackBar(
-                                        content:
-                                            Text("Verify the credentials again")));
+                                        content: Text(
+                                            "Verify the credentials again")));
                                   }
                                 }
                               }, //Onpress ends here
@@ -124,12 +133,15 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-
-                        FlatButton(onPressed: (){
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => RegisterPage())
-                          );
-                        }, child: Text("Register", style: TextStyle(color: Colors.white),))
+                  FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => RegisterPage()));
+                      },
+                      child: Text(
+                        "Register",
+                        style: TextStyle(color: Colors.white),
+                      ))
                 ],
               ),
             ),
@@ -140,10 +152,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  void dispose() { 
+  void dispose() {
     _email.dispose();
     _password.dispose();
     super.dispose();
   }
 }
-
