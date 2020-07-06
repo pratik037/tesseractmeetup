@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tesseractmeetup/authService.dart';
-import 'package:tesseractmeetup/registerpage.dart';
+import 'package:tesseractmeetup/loginpage.dart';
+import 'package:tesseractmeetup/main.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
+  TextEditingController _retype = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _key = GlobalKey<ScaffoldState>();
 
@@ -20,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       key: _key,
       appBar: AppBar(
-        title: Text('Login'),
+        title: Text("Register"),
       ),
       body: Form(
         key: _formKey,
@@ -53,6 +55,22 @@ class _LoginPageState extends State<LoginPage> {
                       border: OutlineInputBorder()),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextFormField(
+                  controller: _retype,
+                  obscureText: true,
+                  validator: (value) => value.isEmpty
+                      ? "This cannot be empty"
+                      : value == _password.text
+                          ? null
+                          : "Both passwords do not match",
+                  decoration: InputDecoration(
+                      labelText: 'Confirm Password',
+                      prefixIcon: Icon(Icons.vpn_key),
+                      border: OutlineInputBorder()),
+                ),
+              ),
               user.status == Status.Authenticating
                   ? Center(child: CircularProgressIndicator())
                   : Padding(
@@ -64,16 +82,22 @@ class _LoginPageState extends State<LoginPage> {
                         child: MaterialButton(
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
-                              if (!await user.signIn(
+                              if (!await user.singUp(
                                   _email.text, _password.text)) {
-                                _key.currentState.showSnackBar(SnackBar(
-                                    content:
-                                        Text("Verify the credentials again")));
+                                _key.currentState.showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        "Failed to register, please try again"),
+                                  ),
+                                );
+                              }
+                              else{
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
                               }
                             }
                           }, //Onpress ends here
                           child: Text(
-                            "Sign In",
+                            "Sign Up",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
@@ -81,24 +105,16 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-
-                    FlatButton(onPressed: (){
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => RegisterPage())
-                      );
-                    }, child: Text("Register"))
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                  child: Text("Login"))
             ],
           ),
         ),
       ),
     );
   }
-
-  @override
-  void dispose() { 
-    _email.dispose();
-    _password.dispose();
-    super.dispose();
-  }
 }
-
