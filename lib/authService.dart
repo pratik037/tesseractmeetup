@@ -42,7 +42,7 @@ class AuthenticationService extends ChangeNotifier{
 
     }catch(e){
       _status = Status.Unaunthenticated;
-
+      notifyListeners();
       return false;
     }
   }
