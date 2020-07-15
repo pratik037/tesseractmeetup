@@ -18,7 +18,7 @@ class UserDetails extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Color(0xff6C63FF)
               ),
-              accountName: Text(user.displayName),
+              accountName: null,
               accountEmail: Text(user.email),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Color(0xffffb663),
