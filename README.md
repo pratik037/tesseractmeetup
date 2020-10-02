@@ -1,6 +1,8 @@
 # Tesseract Meetup
 A simple login and registration based app that implements Provider as state management and uses Firebase auth for login and registration.
 
+It has two branches - main and altdesign. Main branch has the simple layout and altdesign has a better design and splash screen implementation.
+
 Please follow the below setup carefully to successfully run the project in your local system.
 
 ## Pre-requisites
