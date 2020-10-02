@@ -15,12 +15,14 @@ class Splash extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(32.0),
-              child: Text("Initialising...", style: TextStyle(fontSize: 20),),
+              child: Text(
+                "Initialising App...",
+                style: TextStyle(fontSize: 20),
+              ),
             ),
           ],
         ),
       ),
-      
     );
   }
 }
